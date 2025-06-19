@@ -1,0 +1,7 @@
+Flask
+Werkzeug
+moviepy
+yt-dlp
+requests
+instagrapi
+facebook-sdk
