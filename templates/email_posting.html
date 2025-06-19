@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Posting</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='email_posting.css') }}">
+    <style>
+        /* Flash Message Styles */
+        .alert-success { color: green; margin: 10px 0; font-weight: bold; }
+        .alert-info    { color: black; margin: 10px 0; }
+        .alert-warning { color: black; margin: 10px 0; }
+        .alert-danger  { color: red; margin: 10px 0; font-weight: bold; }
+
+        /* Large file popup styles */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .popup-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
+            margin: auto;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+        .popup-content h3 { margin-bottom: 10px; }
+        .popup-content a  { color: #007BFF; text-decoration: underline; }
+
+        /* Hide status lines initially */
+        .status-box .status-line {
+            display: none;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <span class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="MultiPost Logo">
+        </span>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Large file popup -->
+    <div id="largeFilePopup" class="popup-overlay">
+        <div class="popup-content">
+            <h3>Large files must be shared with Google Drive</h3>
+            <p>
+                Attachments larger than 25MB will be automatically uploaded to Google Drive.
+                A download link will be included in your emails.
+            </p>
+            <a href="https://support.google.com/drive/answer/2424368?hl=en" target="_blank">Learn more</a>
+            <br><br>
+            <button onclick="closePopup()">OK</button>
+        </div>
+    </div>
+
+    <div class="email-form-container">
+       <center> <h2>Send Email</h2></center>
+
+        <form id="emailForm" method="POST" enctype="multipart/form-data">
+            <label>Select Emails File:</label>
+            <select name="email_file" required>
+                <option value="" disabled selected>Select Email List File</option>
+                {% for file in email_files %}
+                    <option value="{{ file }}">{{ file }}</option>
+                {% endfor %}
+            </select><br><br>
+
+            <input type="text" name="subject" placeholder="Subject" required><br><br>
+            <textarea name="message" rows="6" placeholder="Write your message here..." required></textarea><br><br>
+
+            <label>Attachments (optional):</label>
+            <input type="file" name="attachment[]" id="attachmentInput" multiple><br><br>
+
+            <div style="text-align: center;">
+                <button class="b1" type="submit" id="sendBtn">Send</button>
+            </div>
+
+            <center>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert-{{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </center>
+        </form>
+
+        {% if sent_count is defined %}
+            <div class="status-box">
+                <p class="status-line success-msg">✅ Emails Sent Successfully: {{ sent_count }}</p>
+                <p class="status-line">📄 Total Emails in File: {{ total_count }}</p>
+                <p class="status-line">♻️ Duplicates Removed: {{ duplicate_count }}</p>
+            </div>
+        {% endif %}
+
+        <div style="text-align:right; margin-top: 20px;">
+            <button class="b2" onclick="location.reload()">Refresh</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Reveal each status line in sequence
+            const lines = document.querySelectorAll('.status-box .status-line');
+            lines.forEach((line, i) => {
+                setTimeout(() => {
+                    line.style.display = 'block';
+                }, i * 700);  // 700ms interval
+            });
+
+            // Popup logic for large attachments
+            const attachmentInput = document.getElementById('attachmentInput');
+            attachmentInput.addEventListener('change', () => {
+                const files = attachmentInput.files;
+                if ([...files].some(f => f.size > 25 * 1024 * 1024)) {
+                    document.getElementById('largeFilePopup').style.display = 'flex';
+                }
+            });
+
+            // Disable send button on submit
+            const form = document.getElementById('emailForm');
+            const sendBtn = document.getElementById('sendBtn');
+            form.addEventListener('submit', () => {
+                sendBtn.disabled = true;
+                sendBtn.textContent = 'Sending...';
+            });
+        });
+
+        function closePopup() {
+            document.getElementById('largeFilePopup').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Poppins Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Boxicons for icons -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <!-- External CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+  <style>
+    .flash-message {
+      color: #ff4d4d;
+      text-align: center;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+    .forgot-password-link {
+      text-align: center;
+      margin-top: 1rem;
+      display: none; /* Hidden by default */
+    }
+    .forgot-password-link a {
+      color: white;
+      text-decoration: underline;
+    }
+    .forgot-password-link a:hover {
+      color: lightblue;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-logo"><p>Automated Posting</p></div>
+    <div class="nav-menu">
+      <ul>
+        <li><a href="{{ url_for('login') }}" class="link active">Login</a></li>
+        <li><a href="{{ url_for('register') }}" class="link">Sign up</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Login Form -->
+  <div class="wrapper">
+    <div class="form-box">
+      <div class="login-container">
+        <header>Login</header>
+        <form method="POST" action="{{ url_for('login') }}">
+          
+          <!-- Email Input -->
+          <div class="input-box">
+            <input type="email" name="email" class="input-field" placeholder="Email" required>
+            <i class='bx bx-envelope'></i>
+          </div>
+
+          <!-- Password Input -->
+          <div class="input-box">
+            <input type="password" name="password" class="input-field" placeholder="Password" required>
+            <i class='bx bx-lock-alt'></i>
+          </div>
+
+          <!-- Login Button -->
+          <div class="input-box">
+            <input type="submit" class="submit" value="Login">
+          </div>
+
+          <!-- Flash Messages -->
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, msg in messages %}
+                <div class="flash-message {{ category }}">{{ msg }}</div>
+              {% endfor %}
+              <!-- Show Forgot Password link below button -->
+              <div class="forgot-password-link">
+                <a href="{{ url_for('forgot_password') }}">Forgot Password?</a>
+              </div>
+            {% endif %}
+          {% endwith %}
+
+          <!-- Sign-up Prompt -->
+          <div class="top" style="margin-top:1rem;">
+            <span>Don't have an account? <a href="{{ url_for('register') }}">Sign Up</a></span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Show the forgot password link if there are flash messages
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        document.addEventListener('DOMContentLoaded', function() {
+          const forgotLink = document.querySelector('.forgot-password-link');
+          if (forgotLink) {
+            forgotLink.style.display = 'block';
+          }
+        });
+      {% endif %}
+    {% endwith %}
+  </script>
+
+</body>
+</html>

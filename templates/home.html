@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MultiPost | Automate Your Outreach</title>
+    <script src="https://kit.fontawesome.com/266042ac76.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+</head>
+<body>
+    <!-- 🔝 Navigation Bar -->
+    <nav>
+        <span class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="MultiPost Logo">
+        </span>
+        <div class="nav-links">
+            <a href="{{ url_for('email_posting') }}"><i class="fa-solid fa-envelope"></i> Email Posting</a>
+            <a href="{{ url_for('social_posting') }}"><i class="fa-solid fa-share-nodes"></i> Social Posting</a>
+            <a href="{{ url_for('logout') }}"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </div>
+    </nav>
+
+    <!-- 🎯 Hero Section -->
+    <header class="hero">
+        <h1>Welcome to MultiPost</h1>
+        <p class="tagline">Automate your Email and Social Media campaigns from one place.</p>
+        <img class="hero-img" src="{{ url_for('static', filename='automation.png') }}" alt="automation Illustration" height="400"><br>
+        <a href="{{ url_for('email_posting') }}" class="cta-button"><i class="fa-solid fa-envelope"></i> email post </a>
+        <a href="{{ url_for('social_posting') }}" class="cta-button"><i class="fa-solid fa-share-nodes"></i>media post</a>
+    </header>
+
+    <!-- ⭐ Features -->
+    <section id="features" class="section">
+        <h2>What You Can Do</h2>
+        <div class="feature-list">
+            <div class="feature-item">
+                <h3>📬 Mass Email Sending</h3>
+                <p>Upload a list and deliver emails to multiple recipients instantly.</p>
+            </div>
+            <div class="feature-item">
+                <h3>📲 Post to Social Media</h3>
+                <p>Publish videos and messages to Instagram and LinkedIn using your credentials.</p>
+            </div>
+            <div class="feature-item">
+                <h3>🔐 Fully Secure</h3>
+                <p>We never store your access keys. Your data stays private and protected.</p>
+            </div>
+            <div class="feature-item">
+                <h3>📊 Instant Feedback</h3>
+                <p>Track how many emails and posts were successfully delivered.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ⚙️ How It Works -->
+    <section id="how-it-works" class="section">
+        <h2>How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <h3>1️⃣ Login or Register</h3>
+                <p>Provide your credentials including email API key, Instagram login, and LinkedIn token.</p>
+            </div>
+            <div class="step">
+                <h3>2️⃣ Choose Your Action</h3>
+                <p>Pick whether you want to send emails or post on social media.</p>
+            </div>
+            <div class="step">
+                <h3>3️⃣ Upload & Launch</h3>
+                <p>Select your file, compose your content, and launch the campaign!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 📞 Contact -->
+    <section id="contact" class="section">
+        <h2>Get in Touch</h2>
+        <p>Need support or have a feature request?</p>
+        <p>Email: <a href="krucep@gmail.com" id="em1">krucetp@gmail.com</a></p>
+        <p>Phone: +123 456 7890</p>
+    </section>
+</body>
+</html>

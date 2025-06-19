@@ -1,0 +1,133 @@
+/* POPPINS FONT */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: url("../static/1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.form-box {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    border-radius: 15px;
+    width: 400px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+header {
+    color: #fff;
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.input-label {
+    color: #fff;
+    font-size: 14px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.input-box {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px 45px 12px 45px;
+    background:white;
+    border: none;
+    border-radius: 30px;
+    color: black;
+    font-size: 15px;
+    outline: none;
+    transition: background 0.3s ease;
+}
+
+
+.input-box i {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 18px;
+}
+
+.submit {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.8);
+    border: none;
+    border-radius: 30px;
+    color: #000;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.submit:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.top {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.top span a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.top span a:hover {
+    text-decoration: underline;
+}
+
+@media only screen and (max-width: 480px) {
+    .form-box {
+        width: 90%;
+        padding: 30px 20px;
+    }
+
+    .input-field {
+        padding-left: 40px;
+    }
+}
+.flash-message.success {
+    color: #28a745; /* green */
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.flash-message.error {
+    color: #ff4d4d; /* red */
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: 500;
+}

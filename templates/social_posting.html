@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Posting</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <style>
+        /* Large file popup styles */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .popup-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
+            margin: auto;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+        .popup-content h3 {
+            margin-bottom: 10px;
+        }
+        .popup-content a {
+            color: #007BFF;
+            text-decoration: underline;
+        }
+    </style>
+    <!-- Navbar Section -->
+    <nav>
+        <span class="logo">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="MultiPost Logo">
+        </span>
+        <div class="nav-links">
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="/logout">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Main Content Section -->
+    <div class="container">
+        <h2>Social Media Posting</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul>
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <div class="email-form-container">
+            <form method="POST">
+                <div class="input-group">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div class="input-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" required></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="video_url">Video URL</label>
+                    <input type="text" id="video_url" name="video_url" required>
+                </div>
+                <div class="input-group">
+                    <label for="platforms">Select Platforms</label>
+                    <div>
+                        <label><input type="checkbox" name="platforms" value="instagram"> Instagram</label>
+                        <label><input type="checkbox" name="platforms" value="linkedin"> LinkedIn</label>
+                        <!-- Add Facebook checkbox -->
+                        <label><input type="checkbox" name="platforms" value="facebook"> Facebook</label>
+                    </div>
+                </div>
+                <button class="b1" type="submit">Post to Social Media</button>
+            </form>
+        </div>
+
+        {% if result %}
+            <div class="result">
+                {% for platform, status in result.items() %}
+                    <p>{{ platform }}: {{ status }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
