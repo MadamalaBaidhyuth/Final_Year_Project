@@ -13,4 +13,4 @@ typing-extensions==4.14.0
 PySocks==1.7.1
 pydantic-core==2.33.2
 typing-inspection==0.4.1
-
+Pillow>=8.1.1
