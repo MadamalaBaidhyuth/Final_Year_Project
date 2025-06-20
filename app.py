@@ -6,7 +6,6 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from instagrapi import Client
 from instagrapi.exceptions import FeedbackRequired
-from moviepy.editor import VideoFileClip
 import yt_dlp, requests, facebook as fb
 import shutil
 
